@@ -8,7 +8,7 @@ import PostButton from "./_components/post_button"; // 投稿ボタン
 import SearchButton from "./_components/search_button"; // 検索バー用ボタン
 import PostsCard from "./_components/post_card"; // 検索結果表示欄
 import { SIKAKU_LIST } from "./_lib/define/sikaku"; // 資格名の定義
-import { Article } from "./_lib/define/types"; // 体験記の型定義
+import type { Article } from "./_lib/define/types"; // 体験記の型定義
 import SliderComponent from "./_components/slider_component";
 
 // 資格種別のリストを取得する
@@ -119,7 +119,6 @@ export default function Home() {
   const searchParams = useSearchParams();
   const getBigClassifyParam = searchParams.get("big_classify");
   const getSmallClassifyParam = searchParams.get("small_classify");
-  // Modal visibility state
   const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
@@ -130,89 +129,15 @@ export default function Home() {
 
   const [sliderValue, setSliderValue] = useState(0);
 
-  const handleSubmit = async (event: any) => {
-    event.preventDefault();
-
-    const payload = {
-      sikaku_name: getSmallClassifyParam,
-      level: Number(sliderValue),
-    };
-
-    try {
-      const response = await axios.post("/api/ranking", payload);
-      console.log(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-
-    alert("ご協力ありがとうございました！");
-
-    setShowModal(false);
-  };
-
   // HTMLを返す
   return (
     <div className="flex flex-col items-start">
-      {/* 資格ランキング用のモーダル */}
-      {showModal && (
-        <div
-          className="fixed inset-0 z-10 overflow-y-auto"
-          aria-labelledby="modal-title"
-          role="dialog"
-          aria-modal="true"
-        >
-          <div className="flex min-h-screen items-end justify-center px-4 pb-20 pt-4 text-center sm:block sm:p-0">
-            <div
-              className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
-              aria-hidden="true"
-            ></div>
-            <span
-              className="hidden sm:inline-block sm:h-screen sm:align-middle"
-              aria-hidden="true"
-            >
-              &#8203;
-            </span>
-            <div className="inline-block transform overflow-hidden rounded-lg bg-white text-left align-bottom shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg sm:align-middle">
-              <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                <h2
-                  className="text-lg font-medium leading-6 text-gray-900"
-                  id="modal-title"
-                >
-                  「{getSmallClassifyParam}」の難易度を教えていただけますか？
-                </h2>
-                <SliderComponent
-                  value={sliderValue}
-                  setValue={setSliderValue}
-                />
-              </div>
-              <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                <button
-                  onClick={handleSubmit}
-                  type="button"
-                  className="inline-flex w-full justify-center rounded-md border border-transparent bg-blue-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none sm:ml-3 sm:w-auto sm:text-sm"
-                >
-                  送信
-                </button>
-                <button
-                  onClick={() => setShowModal(false)}
-                  type="button"
-                  className="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none sm:ml-3 sm:mt-0 sm:w-auto sm:text-sm"
-                >
-                  キャンセル
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
       <div className="mb-2 mt-2 flex items-center">
         {/* ページタイトル */}
         <PageTitle title="資格受験体験記" />
         {/* 投稿ボタン */}
         <PostButton />
       </div>
-      {/* --------------------------------------検索ボードここから-------------------------------------- */}
       {/* --------------------------------------検索ボードPC用-------------------------------------- */}
       <div className="pb-2 hidden h-auto w-96 flex-wrap bg-point-green-dark lg:flex lg:w-full">
         <SearchButton
@@ -290,7 +215,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-
       {/* --------------------------------------検索ボードここまで-------------------------------------- */}
 
       <hr className="border-1 h-1 w-full border-point-green-light" />

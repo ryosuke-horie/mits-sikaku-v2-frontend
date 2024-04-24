@@ -9,7 +9,6 @@ import TextArea from "./_components/textarea";
 import SelectField from "./_components/select_field";
 import { SIKAKU_LIST } from "../_lib/define/sikaku";
 import { useState } from "react";
-import { useAuth } from "@clerk/nextjs";
 
 type FormData = {
   user_id: string;
@@ -22,7 +21,7 @@ type FormData = {
 };
 
 export default function Post() {
-  const { userId } = useAuth();
+  //   const { userId } = useAuth();
   const router = useRouter();
   const defaultBigClassify = Object.keys(SIKAKU_LIST)[0];
   const {
@@ -70,7 +69,7 @@ export default function Post() {
       const smallClassify = encodeURIComponent(data.smallClassify);
 
       router.push(
-        `/?big_classify=${bigClassify}&small_classify=${smallClassify}`,
+        `/?big_classify=${bigClassify}&small_classify=${smallClassify}`
       );
     } catch (error) {
       console.log(error);

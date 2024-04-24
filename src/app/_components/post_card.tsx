@@ -2,7 +2,6 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import gokakuImage from "../../../public/gokaku.png";
-import { useAuth } from "@clerk/nextjs";
 import { DeleteButton } from "./button/deleteButton";
 import { EditButton } from "./button/editButton";
 
@@ -28,7 +27,7 @@ const hoverAnimation =
 
 export default function PostsCard({ article }: PostsCardProps) {
   const router = useRouter();
-  const { userId } = useAuth();
+  //   const { userId } = useAuth();
   const isUserArticle = userId === article.user_id;
 
   // 編集機能
