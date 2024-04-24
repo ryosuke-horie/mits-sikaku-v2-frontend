@@ -1,5 +1,4 @@
 "use client";
-import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
 import axios from "axios"; // axiosをインポート
@@ -77,7 +76,7 @@ export default function Home() {
 
       const url =
         classification === ""
-          ? `/api/article`
+          ? "/api/article"
           : `/api/search?big_classify=${classification}`;
 
       axios
@@ -100,7 +99,7 @@ export default function Home() {
 
     const url =
       qualification === ""
-        ? `/api/article`
+        ? "/api/article"
         : `/api/search?small_classify=${qualification}`;
 
     axios
@@ -114,19 +113,6 @@ export default function Home() {
       })
       .catch((error) => console.error(error));
   }
-
-  const searchParams = useSearchParams();
-  const getBigClassifyParam = searchParams.get("big_classify");
-  const getSmallClassifyParam = searchParams.get("small_classify");
-  const [showModal, setShowModal] = useState(false);
-
-  useEffect(() => {
-    if (getBigClassifyParam || getSmallClassifyParam) {
-      setShowModal(true);
-    }
-  }, [getBigClassifyParam, getSmallClassifyParam]);
-
-  const [sliderValue, setSliderValue] = useState(0);
 
   // HTMLを返す
   return (
@@ -145,30 +131,28 @@ export default function Home() {
           active={activeClassification === "すべて"}
           onClick={() => clickedClassification("すべて")}
         />
-        {big_classify &&
-          big_classify.map((classification) => (
-            <SearchButton
-              key={classification}
-              name={classification}
-              active={activeClassification === classification}
-              onClick={() => clickedClassification(classification)}
-            />
-          ))}
+        {big_classify?.map((classification) => (
+          <SearchButton
+            key={classification}
+            name={classification}
+            active={activeClassification === classification}
+            onClick={() => clickedClassification(classification)}
+          />
+        ))}
       </div>
 
       {/* 資格名表示部分 */}
       {/* isActiveQualificationComponentがtrueのときに表示する */}
       {isActiveQualificationComponent && (
         <div className="pt-2 border-t hidden h-auto w-96 flex-wrap bg-point-green-dark lg:flex lg:w-full">
-          {qualificationList &&
-            qualificationList.map((qualification) => (
-              <SearchButton
-                key={qualification}
-                name={qualification}
-                active={activeQualification === qualification}
-                onClick={() => clickedQualification(qualification)}
-              />
-            ))}
+          {qualificationList?.map((qualification) => (
+            <SearchButton
+              key={qualification}
+              name={qualification}
+              active={activeQualification === qualification}
+              onClick={() => clickedQualification(qualification)}
+            />
+          ))}
         </div>
       )}
 
@@ -188,12 +172,11 @@ export default function Home() {
                 onChange={(event) => clickedClassification(event.target.value)}
               >
                 <option>資格種別</option>
-                {big_classify &&
-                  big_classify.map((classification) => (
-                    <option key={classification} value={classification}>
-                      {classification}
-                    </option>
-                  ))}
+                {big_classify?.map((classification) => (
+                  <option key={classification} value={classification}>
+                    {classification}
+                  </option>
+                ))}
               </select>
             </div>
 
@@ -203,12 +186,11 @@ export default function Home() {
                 onChange={(event) => clickedQualification(event.target.value)}
               >
                 <option>資格名</option>
-                {qualificationList &&
-                  qualificationList.map((qualification) => (
-                    <option key={qualification} value={qualification}>
-                      {qualification}
-                    </option>
-                  ))}
+                {qualificationList?.map((qualification) => (
+                  <option key={qualification} value={qualification}>
+                    {qualification}
+                  </option>
+                ))}
               </select>
             </div>
           </div>
@@ -219,10 +201,9 @@ export default function Home() {
       <hr className="border-1 h-1 w-full border-point-green-light" />
       {/* 検索結果表示欄 */}
       <div className="mt-2 flex w-full flex-col bg-white">
-        {articles &&
-          articles.map((article: Article) => (
-            <PostsCard key={article.id} article={article} />
-          ))}
+        {articles?.map((article: Article) => (
+          <PostsCard key={article.id} article={article} />
+        ))}
       </div>
     </div>
   );
