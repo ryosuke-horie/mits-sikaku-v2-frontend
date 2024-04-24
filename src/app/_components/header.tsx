@@ -16,6 +16,20 @@ export default function Header(): JSX.Element {
           </>
         </Link>
       </div>
+
+      {/* サインアップ */}
+      <div className="mx-4 flex items-center">
+        <Link href="/signup">
+          <span className="text-gray-700">新規登録</span>
+        </Link>
+      </div>
+
+      {/* ログイン */}
+      <div className="mx-4 flex items-center">
+        <Link href="/login">
+          <span className="text-gray-700">ログイン</span>
+        </Link>
+      </div>
     </div>
   );
 }

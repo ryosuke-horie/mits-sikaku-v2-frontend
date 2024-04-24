@@ -1,15 +1,14 @@
 "use client";
-import React, { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import React, { useEffect, useState } from "react";
 
 import axios from "axios"; // axiosをインポート
 import PageTitle from "./_components/page_title";
 import PostButton from "./_components/post_button"; // 投稿ボタン
-import SearchButton from "./_components/search_button"; // 検索バー用ボタン
 import PostsCard from "./_components/post_card"; // 検索結果表示欄
+import SearchButton from "./_components/search_button"; // 検索バー用ボタン
 import { SIKAKU_LIST } from "./_lib/define/sikaku"; // 資格名の定義
 import type { Article } from "./_lib/define/types"; // 体験記の型定義
-import SliderComponent from "./_components/slider_component";
 
 // 資格種別のリストを取得する
 const big_classify: string[] = Object.keys(SIKAKU_LIST);
