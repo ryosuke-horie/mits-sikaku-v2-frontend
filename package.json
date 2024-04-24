@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "lint": "bunx @biomejs/biome check --apply src/**/*.tsx"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
@@ -23,6 +24,7 @@
     "swr": "^2.2.0"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.7.1",
     "@types/node": "^20.4.0",
     "autoprefixer": "^10.4.14",
     "postcss": "^8.4.24",
