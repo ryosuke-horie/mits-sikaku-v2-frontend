@@ -162,10 +162,6 @@ export default function Home() {
           aria-modal="true"
         >
           <div className="flex min-h-screen items-end justify-center px-4 pb-20 pt-4 text-center sm:block sm:p-0">
-            <div
-              className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
-              aria-hidden="true"
-            ></div>
             <span
               className="hidden sm:inline-block sm:h-screen sm:align-middle"
               aria-hidden="true"

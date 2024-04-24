@@ -3,19 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import logoImage from "/public/logo.jpg";
-import { useEffect, useState } from "react";
-import { RankingIcon } from "./ranking_icon";
-import { InquiryIcon } from "./inquiry_icon";
-
-// 認証｜Clerk
-import {
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  SignOutButton,
-  SignUpButton,
-} from "@clerk/nextjs";
-import { faListSquares } from "@fortawesome/free-solid-svg-icons";
+import { useState } from "react";
 
 // ヘッダー用コンポーネント
 export default function Header(): JSX.Element {
@@ -80,35 +68,6 @@ export default function Header(): JSX.Element {
               お問い合わせ
             </div>
           </Link>
-
-          <SignedIn>
-            <SignOutButton>
-              <span
-                className="mx-4 cursor-pointer text-lg font-bold text-point-green-dark"
-                onClick={() => setIsOpen(false)}
-              >
-                ログアウト
-              </span>
-            </SignOutButton>
-          </SignedIn>
-          <SignedOut>
-            <SignInButton>
-              <span
-                className="mx-4 cursor-pointer text-lg font-bold text-point-green-dark"
-                onClick={() => setIsOpen(false)}
-              >
-                ログイン
-              </span>
-            </SignInButton>
-            <SignUpButton>
-              <span
-                className="mx-4 cursor-pointer text-lg font-bold text-point-green-dark"
-                onClick={() => setIsOpen(false)}
-              >
-                新規登録
-              </span>
-            </SignUpButton>
-          </SignedOut>
         </div>
 
         {/* PC用リンク */}
@@ -138,26 +97,6 @@ export default function Header(): JSX.Element {
               <InquiryIcon />
             </span> */}
           </Link>
-
-          <SignedIn>
-            <SignOutButton>
-              <span className="mx-4 cursor-pointer text-lg font-bold text-point-green-dark">
-                ログアウト
-              </span>
-            </SignOutButton>
-          </SignedIn>
-          <SignedOut>
-            <SignInButton>
-              <span className="mx-4 cursor-pointer text-lg font-bold text-point-green-dark">
-                ログイン
-              </span>
-            </SignInButton>
-            <SignUpButton>
-              <span className="mx-4 cursor-pointer text-lg font-bold text-point-green-dark">
-                新規登録
-              </span>
-            </SignUpButton>
-          </SignedOut>
         </div>
       </div>
     </div>

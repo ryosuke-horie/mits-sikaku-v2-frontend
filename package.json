@@ -13,8 +13,6 @@
     "test": "jest --watch"
   },
   "dependencies": {
-    "@clerk/localizations": "^1.23.0",
-    "@clerk/nextjs": "^4.21.13",
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
     "@fortawesome/free-brands-svg-icons": "^6.4.0",
     "@fortawesome/free-regular-svg-icons": "^6.4.0",
