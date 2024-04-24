@@ -1,0 +1,51 @@
+{
+  "name": "sikaku-mits",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "turbo": "next dev --turbo",
+    "build": "npm run prisma:generate && next build",
+    "start": "next start",
+    "lint": "next lint",
+    "format": "prettier --write --ignore-path .gitignore \"./**/*.{js,jsx,ts,tsx,json,css}\" && next lint --fix",
+    "prisma:generate": "npx prisma generate",
+    "test": "jest --watch"
+  },
+  "dependencies": {
+    "@clerk/localizations": "^1.23.0",
+    "@clerk/nextjs": "^4.21.13",
+    "@fortawesome/fontawesome-svg-core": "^6.4.0",
+    "@fortawesome/free-brands-svg-icons": "^6.4.0",
+    "@fortawesome/free-regular-svg-icons": "^6.4.0",
+    "@fortawesome/free-solid-svg-icons": "^6.4.0",
+    "@fortawesome/react-fontawesome": "^0.2.0",
+    "@prisma/client": "^4.16.2",
+    "@types/react": "18.2.14",
+    "@types/react-dom": "18.2.4",
+    "axios": "^1.4.0",
+    "eslint": "8.44.0",
+    "eslint-config-next": "^13.4.9",
+    "eslint-config-prettier": "^8.8.0",
+    "next": "^13.4.9",
+    "prettier": "^3.0.0",
+    "prettier-plugin-tailwindcss": "^0.3.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.45.1",
+    "swr": "^2.2.0"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^14.0.0",
+    "@types/node": "^20.4.0",
+    "autoprefixer": "^10.4.14",
+    "jest": "^29.6.1",
+    "jest-environment-jsdom": "^29.6.1",
+    "postcss": "^8.4.24",
+    "prisma": "^4.16.2",
+    "tailwindcss": "^3.3.2",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.1.6"
+  }
+}

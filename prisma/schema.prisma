@@ -1,0 +1,36 @@
+generator client {
+  provider        = "prisma-client-js"
+  previewFeatures = ["fullTextSearch", "fullTextIndex"]
+}
+
+datasource db {
+  provider     = "mysql"
+  url          = env("PLANETSCALE_DB")
+  relationMode = "prisma"
+}
+
+model article {
+  id             Int      @id @default(autoincrement())
+  user_id        String
+  name           String
+  title          String
+  method         String   @db.MediumText
+  body           String   @db.MediumText
+  big_classify   String
+  small_classify String
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+}
+
+model inquiry {
+  id        Int      @id @default(autoincrement())
+  content   String
+  createdAt DateTime @default(now())
+}
+
+model ranking {
+  id          Int      @id @default(autoincrement())
+  sikaku_name String
+  level       Int
+  createdAt   DateTime @default(now())
+}
