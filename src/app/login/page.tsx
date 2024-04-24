@@ -30,9 +30,12 @@ export default function LoginPage(): JSX.Element {
         // ログイン成功時の処理
         alert("ログインに成功しました。");
 
-        // 取得したtokenをlocalStorageに保存
         const data = await response.json();
+        // 取得したtokenをlocalStorageに保存
         localStorage.setItem("token", data.token);
+
+        // 取得したuserをlocalStorageに保存
+        localStorage.setItem("user", JSON.stringify(data.user));
 
         // ダッシュボードページに遷移
         router.push("/");

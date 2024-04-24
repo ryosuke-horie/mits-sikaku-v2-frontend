@@ -88,21 +88,6 @@ export default function Post() {
           <p className="pb-2 pl-5 text-red-700">
             ※全ての項目が「必須入力」となります。
           </p>
-          <p className="pl-5 text-red-700">{errors.name?.message}</p>
-          <Controller
-            control={control}
-            name="name"
-            rules={{
-              required: "名前は必須です",
-              maxLength: {
-                value: 30,
-                message: "30文字を超えることはできません",
-              },
-            }}
-            render={({ field }) => (
-              <InputField type="text" placeholder="お名前" {...field} />
-            )}
-          />
 
           <Controller
             control={control}
