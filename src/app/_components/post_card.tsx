@@ -1,9 +1,8 @@
-import { useRouter } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import gokakuImage from "../../../public/gokaku.png";
 import { DeleteButton } from "./button/deleteButton";
-import { EditButton } from "./button/editButton";
+import { useCookies } from "next-client-cookies";
 
 type Article = {
   id: number;
@@ -11,8 +10,8 @@ type Article = {
   name: string;
   title: string;
   body: string;
-  big_classify: string;
-  small_classify: string;
+  big_category: string;
+  small_category: string;
   createdAt: string;
   updatedAt: string;
 };
@@ -26,17 +25,9 @@ const hoverAnimation =
   "transition-transform duration-300 ease-in-out transform hover:-translate-y-2";
 
 export default function PostsCard({ article }: PostsCardProps) {
-  const router = useRouter();
-  //   const { userId } = useAuth();
+  const cookie = useCookies();
+  const userId = cookie.get("user_id");
   const isUserArticle = userId === article.user_id;
-
-  // 編集機能
-  const handleEdit = () => {
-    // 編集ページへのルートを生成
-    const editRoute = `/edit/${article.id}`;
-    // ルートにリダイレクト
-    router.push(editRoute);
-  };
 
   // 削除機能
   const handleDelete = (event: any) => {
@@ -89,9 +80,9 @@ export default function PostsCard({ article }: PostsCardProps) {
               </div>
               <div className="mx-8 flex flex-col">
                 <p className="my-4 text-gray-500">
-                  {article.big_classify}
+                  {article.big_category}
                   <span>&nbsp;&gt;&nbsp;</span>
-                  {article.small_classify}
+                  {article.small_category}
                 </p>
                 <h3 className="my-4 text-xl font-bold text-point-green-dark">
                   {article.title}
@@ -102,9 +93,6 @@ export default function PostsCard({ article }: PostsCardProps) {
           {/* ユーザーが記事のオーナーであれば、編集・削除ボタンを表示 */}
           {isUserArticle && (
             <div className="mr-4 flex items-center">
-              <EditButton onClick={handleEdit} userId={article.user_id}>
-                編集
-              </EditButton>
               <DeleteButton onClick={handleDelete} userId={article.user_id}>
                 削除
               </DeleteButton>

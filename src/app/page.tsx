@@ -27,7 +27,7 @@ export default function Home() {
                 },
             })
 			.then((response) => {
-				setArticles(response.data.articles);
+                setArticles(response.data);
 			})
 			.catch((error) => console.error(error));
 	}
