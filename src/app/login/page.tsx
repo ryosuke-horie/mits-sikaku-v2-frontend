@@ -34,7 +34,7 @@ export default function LoginPage(): JSX.Element {
         const data = await response.json();
 
         // ユーザー ID とトークンを Cookie にセット
-        cookies.set("user_id", data.user_id, {
+        cookies.set("user_id", data.userId, {
           path: "/",
         });
         cookies.set("token", data.token, {
