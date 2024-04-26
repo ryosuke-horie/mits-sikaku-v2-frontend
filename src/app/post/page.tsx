@@ -1,14 +1,13 @@
 "use client";
-
+import { use, useState } from "react";
 import { useRouter } from "next/navigation";
-import { useForm } from "react-hook-form";
-import { Controller } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import PageTitle from "../_components/page_title";
 import InputField from "./_components/input_field";
 import TextArea from "./_components/textarea";
 import SelectField from "./_components/select_field";
 import { SIKAKU_LIST } from "../_lib/define/sikaku";
-import { useState } from "react";
+import { useCookies } from "next-client-cookies";
 
 type FormData = {
   user_id: string;
@@ -21,11 +20,17 @@ type FormData = {
 };
 
 export default function Post() {
-  //   const { userId } = useAuth();
+  const cookies = useCookies();
+
+  // ユーザーIDを取得
+  const userId = cookies.get("user_id");
+  const token = cookies.get("token");
+
   const router = useRouter();
+  const PostApi = `${process.env.NEXT_PUBLIC_API_URL}/api/post`;
+
   const defaultBigClassify = Object.keys(SIKAKU_LIST)[0];
   const {
-    register,
     handleSubmit,
     control,
     watch,
@@ -46,31 +51,29 @@ export default function Post() {
     setIsSubmitting(true); // 投稿が開始されたことを示すフラグを立てる
 
     try {
-      const response = await fetch("/api/article", {
+      const response = await fetch(PostApi, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
           user_id: userId,
           name: data.name,
-          big_classify: data.bigClassify,
-          small_classify: data.smallClassify,
+          big_category: data.bigClassify,
+          small_category: data.smallClassify,
           title: data.title,
           body: data.body,
           method: data.method,
-          createdAt: new Date(),
-          updatedAt: new Date(),
         }),
       });
 
-      // エンコードしてパラメータに付与する
-      const bigClassify = encodeURIComponent(data.bigClassify);
-      const smallClassify = encodeURIComponent(data.smallClassify);
+      // debug
+      console.log(userId);
+      console.log(token);
+      console.log(data);
 
-      router.push(
-        `/?big_classify=${bigClassify}&small_classify=${smallClassify}`
-      );
+      router.push("/");
     } catch (error) {
       console.log(error);
     }
@@ -98,7 +101,6 @@ export default function Post() {
                 options={Object.keys(SIKAKU_LIST)}
                 onChange={(value) => {
                   field.onChange(value);
-                  console.log(value);
                 }}
                 value={field.value}
               />
@@ -119,7 +121,6 @@ export default function Post() {
                 value={field.value}
                 onChange={(value) => {
                   field.onChange(value);
-                  console.log(value);
                 }}
               />
             )}

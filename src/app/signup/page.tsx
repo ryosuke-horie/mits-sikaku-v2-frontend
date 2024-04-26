@@ -11,6 +11,8 @@ export default function SignupPage(): JSX.Element {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const signupApi = `${process.env.NEXT_PUBLIC_API_URL}/api/signup`;
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -20,13 +22,10 @@ export default function SignupPage(): JSX.Element {
     formData.append("password", password);
 
     try {
-      const response = await fetch(
-        "https://mits-sikaku-api.ryosuke-horie37.workers.dev/api/signup",
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
+      const response = await fetch(signupApi, {
+        method: "POST",
+        body: formData,
+      });
 
       if (response.ok) {
         // 登録成功時の処理
