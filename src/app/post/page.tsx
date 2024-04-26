@@ -1,5 +1,5 @@
 "use client";
-import { use, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useForm, Controller } from "react-hook-form";
 import PageTitle from "../_components/page_title";
@@ -59,7 +59,6 @@ export default function Post() {
         },
         body: JSON.stringify({
           user_id: userId,
-          name: data.name,
           big_category: data.bigClassify,
           small_category: data.smallClassify,
           title: data.title,
@@ -68,10 +67,12 @@ export default function Post() {
         }),
       });
 
-      // debug
       console.log(userId);
-      console.log(token);
-      console.log(data);
+      console.log(data.bigClassify);
+      console.log(data.smallClassify);
+      console.log(data.title);
+      console.log(data.body);
+      console.log(data.method);
 
       router.push("/");
     } catch (error) {
