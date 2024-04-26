@@ -7,31 +7,27 @@ import logoImage from "/public/logo.jpg";
 export default function SignupPage(): JSX.Element {
   const router = useRouter();
 
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const signupApi = `${process.env.NEXT_PUBLIC_API_URL}/api/signup`;
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append("name", name);
     formData.append("email", email);
     formData.append("password", password);
 
     try {
-      const response = await fetch(
-        "https://mits-sikaku-api.ryosuke-horie37.workers.dev/api/signup",
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
+      const response = await fetch(signupApi, {
+        method: "POST",
+        body: formData,
+      });
 
       if (response.ok) {
         // 登録成功時の処理
         alert("新規登録が完了しました。");
-        setName("");
         setEmail("");
         setPassword("");
 
@@ -53,19 +49,6 @@ export default function SignupPage(): JSX.Element {
           <Image src={logoImage} alt="logo" width={80} height={80} />
         </div>
         <form onSubmit={handleSubmit}>
-          <div className="mb-4">
-            <label className="block text-gray-700 text-sm font-bold mb-2">
-              名前
-            </label>
-            <input
-              type="text"
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              placeholder="名前"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
-          </div>
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2">
               メールアドレス

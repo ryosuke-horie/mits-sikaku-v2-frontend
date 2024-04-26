@@ -3,9 +3,11 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import logoImage from "/public/logo.jpg";
+import { useCookies } from "next-client-cookies";
 
 export default function LoginPage(): JSX.Element {
   const router = useRouter();
+  const cookies = useCookies();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -17,25 +19,27 @@ export default function LoginPage(): JSX.Element {
     formData.append("email", email);
     formData.append("password", password);
 
+    const LoginApi = `${process.env.NEXT_PUBLIC_API_URL}/api/login`;
+
     try {
-      const response = await fetch(
-        "https://mits-sikaku-api.ryosuke-horie37.workers.dev/api/login",
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
+      const response = await fetch(LoginApi, {
+        method: "POST",
+        body: formData,
+      });
 
       if (response.ok) {
         // ログイン成功時の処理
         alert("ログインに成功しました。");
 
         const data = await response.json();
-        // 取得したtokenをlocalStorageに保存
-        localStorage.setItem("token", data.token);
 
-        // 取得したuserをlocalStorageに保存
-        localStorage.setItem("user", JSON.stringify(data.user));
+        // ユーザー ID とトークンを Cookie にセット
+        cookies.set("user_id", data.userId, {
+          path: "/",
+        });
+        cookies.set("token", data.token, {
+          path: "/",
+        });
 
         // ダッシュボードページに遷移
         router.push("/");
