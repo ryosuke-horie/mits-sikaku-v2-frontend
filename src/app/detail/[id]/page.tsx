@@ -1,27 +1,44 @@
 "use client";
-import useSWR from "swr";
 import PageTitle from "@/app/_components/page_title";
-import React from "react";
-
-// SWRで使用するfetcher関数。urlを受け取り、jsonを返す。
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
-
-// 改行を<br/>に変換する関数
-const convertNewlinesToBreaks = (text: string) =>
-  text.split("\n").map((line, index) => (
-    <React.Fragment key={index}>
-      {line}
-      <br />
-    </React.Fragment>
-  ));
+import { useCookies } from "next-client-cookies";
+import { useEffect, useState } from "react";
 
 export default function Detail({ params }: { params: { id: string } }) {
-  // APIからデータを取得する
-  const url = `/api/detail?id=${params.id}`;
-  const { data, error } = useSWR(url, fetcher);
+  const cookie = useCookies(); 
+  const token = cookie.get("token");
 
-  if (error) return <div>Failed to load</div>;
-  if (!data) return <div>Loading...</div>;
+  const [post, setPost] = useState({
+    title: "",
+    body: "",
+    method: "",
+    big_category: "",
+    small_category: "",
+  });
+
+  // APIからデータを取得する
+  const url = `${process.env.NEXT_PUBLIC_API_URL}/api/post/${params.id}`;
+
+  const getPost = async () => {
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      console.log(data[0]);
+      setPost(data[0]);
+    } else {
+      console.error("データの取得に失敗しました");
+    }
+  }
+
+  // ページ遷移時にデータを取得
+  useEffect(() => {
+    getPost();
+  }, []);
 
   return (
     <div>
@@ -30,34 +47,31 @@ export default function Detail({ params }: { params: { id: string } }) {
 
       {/* タイトル */}
       <h1 className="text-center text-2xl font-bold text-point-green-dark lg:text-3xl">
-        {data.article.title}
+        {post.title}
       </h1>
 
       {/* 体験記内容 */}
       <div className="m-4 flex flex-col bg-white">
         <div className="flex justify-between">
           <span className="m-4 text-xl text-point-green-dark">
-            {data.article.big_classify}
+            {post.big_category}
             <span> &nbsp;&gt;&nbsp;</span>
-            {data.article.small_classify}
-          </span>
-          <span className="mx-4 mt-2 text-xl text-point-green-dark">
-            @{data.article.name}
+            {post.small_category}
           </span>
         </div>
         <p className="mx-4 mt-4 text-2xl font-semibold text-point-green-dark">
           使用した教材
         </p>
         <hr className="border-1 h-1 w-full border-point-green-light" />
-        <div className="mx-6 my-2 text-xl">
-          {convertNewlinesToBreaks(data.article.body)}
+        <div className="mx-6 my-2 text-xl whitespace-pre-wrap">
+          {post.body}
         </div>
         <p className="mx-4 mt-4 text-2xl font-semibold text-point-green-dark">
           学習方法・アドバイスなど
         </p>
         <hr className="border-1 h-1 w-full border-point-green-light" />
-        <div className="mx-6 my-2 text-xl">
-          {convertNewlinesToBreaks(data.article.method)}
+        <div className="mx-6 my-2 text-xl whitespace-pre-wrap">
+          {post.method}
         </div>
       </div>
     </div>

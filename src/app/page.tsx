@@ -2,32 +2,32 @@
 import React, { useEffect, useState } from "react";
 
 import axios from "axios"; // axiosをインポート
+import { useCookies } from "next-client-cookies";
 import PageTitle from "./_components/page_title";
 import PostButton from "./_components/post_button"; // 投稿ボタン
 import PostsCard from "./_components/post_card"; // 検索結果表示欄
 import type { Article } from "./_lib/define/types"; // 体験記の型定義
-import { useCookies } from "next-client-cookies";
 
 // ホームページコンポーネントの定義
 export default function Home() {
-    const cookie = useCookies();
-    const token = cookie.get("token");
+	const cookie = useCookies();
+	const token = cookie.get("token");
 
 	// 記事データを格納するarticlesステートを定義
 	const [articles, setArticles] = useState<Article[]>([]);
 
-    const postApi = `${process.env.NEXT_PUBLIC_API_URL}/api/post`; 
+	const postApi = `${process.env.NEXT_PUBLIC_API_URL}/api/post`;
 
 	// すべての記事を取得する
 	function getAllArticles() {
 		axios
 			.get(postApi, {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-            })
+				headers: {
+					Authorization: `Bearer ${token}`,
+				},
+			})
 			.then((response) => {
-                setArticles(response.data);
+				setArticles(response.data);
 			})
 			.catch((error) => console.error(error));
 	}
@@ -36,7 +36,7 @@ export default function Home() {
 	// 記事データを全件取得する
 	useEffect(() => {
 		getAllArticles();
-	}, []);
+	}, [getAllArticles]);
 
 	// HTMLを返す
 	return (

@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "bunx @biomejs/biome check --apply src/**/*.tsx"
+    "lint": "bunx @biomejs/biome lint --apply src/**/*.tsx",
+    "format": "bunx @biomejs/biome check --apply src/**/*.tsx"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
