@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import logoImage from "/public/logo.jpg";
-import { useCookies  } from "next-client-cookies";
+import { useCookies } from "next-client-cookies";
 
 // ヘッダー用コンポーネント
 export default function Header(): JSX.Element {
