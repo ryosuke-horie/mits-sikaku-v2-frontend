@@ -27,27 +27,22 @@ const hoverAnimation =
 export default function PostsCard({ article }: PostsCardProps) {
   const cookie = useCookies();
   const userId = cookie.get("user_id");
-  const isUserArticle = userId === article.user_id;
+  const isUserArticle = userId == article.user_id;
 
   // 削除機能
   const handleDelete = (event: any) => {
     event.stopPropagation();
 
+    const deleteApi = `${process.env.NEXT_PUBLIC_API_URL}/api/post/${article.id}`;
+
     // APIエンドポイントにDELETEリクエストを送る
-    fetch("/api/article/delete", {
+    fetch(deleteApi, {
       method: "DELETE",
       headers: {
-        "Content-Type": "application/json",
+        Authorization: `Bearer ${cookie.get("token")}`,
       },
-      body: JSON.stringify({
-        id: article.id, // 削除する記事のID
-      }),
     })
       .then((response) => response.json())
-      .then((data) => {
-        // 削除した記事のIDを表示（あるいは他の処理）
-        console.log("Deleted article ID:", data.deletedId);
-      })
       .catch((error) => {
         console.error("Error:", error);
       });
@@ -90,7 +85,7 @@ export default function PostsCard({ article }: PostsCardProps) {
               </div>
             </div>
           </Link>
-          {/* ユーザーが記事のオーナーであれば、編集・削除ボタンを表示 */}
+          {/* ユーザーが記事のオーナーであれば、削除ボタンを表示 */}
           {isUserArticle && (
             <div className="mr-4 flex items-center">
               <DeleteButton onClick={handleDelete} userId={article.user_id}>
