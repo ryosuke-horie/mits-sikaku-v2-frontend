@@ -3,15 +3,6 @@ import PageTitle from "@/app/_components/page_title";
 import { useCookies } from "next-client-cookies";
 import { useEffect, useState } from "react";
 
-// 改行を<br/>に変換する関数
-// const convertNewlinesToBreaks = (text: string) =>
-//   text.split("\n").map((line, index) => (
-//     <React.Fragment key={index}>
-//       {line}
-//       <br />
-//     </React.Fragment>
-//   ));
-
 export default function Detail({ params }: { params: { id: string } }) {
   const cookie = useCookies(); 
   const token = cookie.get("token");
@@ -72,16 +63,14 @@ export default function Detail({ params }: { params: { id: string } }) {
           使用した教材
         </p>
         <hr className="border-1 h-1 w-full border-point-green-light" />
-        <div className="mx-6 my-2 text-xl">
-          {/* {convertNewlinesToBreaks(post.body)} */}
+        <div className="mx-6 my-2 text-xl whitespace-pre-wrap">
           {post.body}
         </div>
         <p className="mx-4 mt-4 text-2xl font-semibold text-point-green-dark">
           学習方法・アドバイスなど
         </p>
         <hr className="border-1 h-1 w-full border-point-green-light" />
-        <div className="mx-6 my-2 text-xl">
-          {/* {convertNewlinesToBreaks(post.method)} */}
+        <div className="mx-6 my-2 text-xl whitespace-pre-wrap">
           {post.method}
         </div>
       </div>
