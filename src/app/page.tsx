@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { useState } from "react";
 
 import axios from "axios"; // axiosをインポート
 import { useCookies } from "next-client-cookies";
@@ -19,24 +19,16 @@ export default function Home() {
 	const postApi = `${process.env.NEXT_PUBLIC_API_URL}/api/post`;
 
 	// すべての記事を取得する
-	function getAllArticles() {
-		axios
-			.get(postApi, {
-				headers: {
-					Authorization: `Bearer ${token}`,
-				},
-			})
-			.then((response) => {
-				setArticles(response.data);
-			})
-			.catch((error) => console.error(error));
-	}
-
-	// 初期処理
-	// 記事データを全件取得する
-	useEffect(() => {
-		getAllArticles();
-	}, [getAllArticles]);
+	axios
+		.get(postApi, {
+			headers: {
+				Authorization: `Bearer ${token}`,
+			},
+		})
+		.then((response) => {
+			setArticles(response.data);
+		})
+		.catch((error) => console.error(error));
 
 	// HTMLを返す
 	return (
