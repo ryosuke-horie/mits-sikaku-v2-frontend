@@ -8,6 +8,8 @@ import PostButton from "./_components/post_button"; // 投稿ボタン
 import PostsCard from "./_components/post_card"; // 検索結果表示欄
 import type { Article } from "./_lib/define/types"; // 体験記の型定義
 
+export const runtime = 'edge';
+
 // ホームページコンポーネントの定義
 export default function Home() {
 	const cookie = useCookies();

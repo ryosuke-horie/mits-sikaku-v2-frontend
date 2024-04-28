@@ -19,6 +19,8 @@ type FormData = {
   smallClassify: string;
 };
 
+export const runtime = 'edge';
+
 export default function Post() {
   const cookies = useCookies();
 

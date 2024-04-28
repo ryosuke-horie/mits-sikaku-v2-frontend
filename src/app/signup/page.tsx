@@ -4,6 +4,8 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import logoImage from "/public/logo.jpg";
 
+export const runtime = 'edge';
+
 export default function SignupPage(): JSX.Element {
   const router = useRouter();
 
