@@ -6,8 +6,8 @@ export type Article = {
   title: string;
   method: string;
   body: string;
-  big_classify: string;
-  small_classify: string;
+  big_category: string;
+  small_category: string;
   createdAt: string;
   updatedAt: string;
 };
