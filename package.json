@@ -6,6 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "build:pages": "npx @cloudflare/next-on-pages",
     "lint": "bunx @biomejs/biome lint --apply src/**/*.tsx",
     "format": "bunx @biomejs/biome check --apply src/**/*.tsx"
   },
