@@ -5,6 +5,8 @@ import { useState } from "react";
 import logoImage from "/public/logo.jpg";
 import { useCookies } from "next-client-cookies";
 
+export const runtime = 'edge';
+
 export default function LoginPage(): JSX.Element {
   const router = useRouter();
   const cookies = useCookies();

@@ -3,6 +3,8 @@ import PageTitle from "@/app/_components/page_title";
 import { useCookies } from "next-client-cookies";
 import { useEffect, useState } from "react";
 
+export const runtime = 'edge';
+
 export default function Detail({ params }: { params: { id: string } }) {
   const cookie = useCookies(); 
   const token = cookie.get("token");
