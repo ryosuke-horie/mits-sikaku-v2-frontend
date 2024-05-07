@@ -37,7 +37,7 @@ export default function SignupPage(): JSX.Element {
         router.push("/login");
       } else {
         // 登録失敗時の処理
-        alert("新規登録に失敗しました。");
+        alert("新規登録に失敗しました。ITSのメールアドレスであることをご確認ください。");
       }
     } catch (error) {
       console.error("エラーが発生しました:", error);
