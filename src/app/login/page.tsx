@@ -56,10 +56,8 @@ export default function LoginPage(): JSX.Element {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
+      <h1 className="text-2xl">ログイン</h1>
       <div className="w-96">
-        <div className="mb-8">
-          <Image src={logoImage} alt="logo" width={80} height={80} />
-        </div>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2">
