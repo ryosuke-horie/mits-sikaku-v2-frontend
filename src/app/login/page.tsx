@@ -43,8 +43,10 @@ export default function LoginPage(): JSX.Element {
           path: "/",
         });
 
-        // ダッシュボードページに遷移
-        router.push("/");
+        // クッキーの設定が完了した後にリダイレクト
+        setTimeout(() => {
+            router.push("/");
+        }, 100);
       } else {
         // ログイン失敗時の処理
         alert("ログインに失敗しました。");
