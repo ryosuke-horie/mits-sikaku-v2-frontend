@@ -43,7 +43,7 @@ export default function LoginPage(): JSX.Element {
 
         // クッキーの設定が完了したことを確認
         setTimeout(() => {
-          router.push("/");
+          router.prefetch("/");
         }, 1000); // 少し長めの遅延を追加
       } else {
         alert("ログインに失敗しました。");
