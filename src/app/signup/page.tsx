@@ -1,10 +1,8 @@
 "use client";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import logoImage from "/public/logo.jpg";
 
-export const runtime = 'edge';
+export const runtime = "edge";
 
 export default function SignupPage(): JSX.Element {
   const router = useRouter();
@@ -28,16 +26,15 @@ export default function SignupPage(): JSX.Element {
       });
 
       if (response.ok) {
-        // 登録成功時の処理
         alert("新規登録が完了しました。");
         setEmail("");
         setPassword("");
 
-        // ログインページに遷移
         router.push("/login");
       } else {
-        // 登録失敗時の処理
-        alert("新規登録に失敗しました。ITSのメールアドレスであることをご確認ください。");
+        alert(
+          "新規登録に失敗しました。ITSのメールアドレスであることをご確認ください。"
+        );
       }
     } catch (error) {
       console.error("エラーが発生しました:", error);
@@ -46,7 +43,7 @@ export default function SignupPage(): JSX.Element {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
-      <h1 className="text-2xl">新規登録</h1>
+      <h1 className="text-2xl mb-4">新規登録</h1>
       <div className="w-96">
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
@@ -75,7 +72,10 @@ export default function SignupPage(): JSX.Element {
               required
             />
           </div>
-          <div>
+          <div className="flex items-center justify-between">
+            <a href="/login" className="text-blue-500 hover:text-blue-700">
+              アカウントをお持ちですか？
+            </a>
             <button
               type="submit"
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
