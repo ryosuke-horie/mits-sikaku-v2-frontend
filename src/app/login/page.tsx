@@ -1,9 +1,9 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useCookies } from "next-client-cookies";
 
-export const runtime = 'edge';
+export const runtime = "edge";
 
 export default function LoginPage(): JSX.Element {
   const router = useRouter();
@@ -28,9 +28,6 @@ export default function LoginPage(): JSX.Element {
       });
 
       if (response.ok) {
-        // ログイン成功時の処理
-        alert("ログインに成功しました。");
-
         const data = await response.json();
 
         // ユーザー ID とトークンを Cookie にセット
@@ -40,19 +37,27 @@ export default function LoginPage(): JSX.Element {
         cookies.set("token", data.token, {
           path: "/",
         });
+        cookies.set("redirectFlag", "true", {
+          path: "/",
+          expires: new Date(Date.now() + 60 * 1000), // 1分間有効なフラグ
+        });
 
         // クッキーの設定が完了した後にリダイレクト
-        setTimeout(() => {
-            router.push("/");
-        }, 100);
+        router.push("/");
       } else {
-        // ログイン失敗時の処理
         alert("ログインに失敗しました。");
       }
     } catch (error) {
       console.error("エラーが発生しました:", error);
     }
   };
+
+  useEffect(() => {
+    // クッキーにtokenが存在するかをチェックして、存在すればリダイレクト
+    if (cookies.get("token")) {
+      router.push("/");
+    }
+  }, [cookies, router]);
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">

@@ -1,15 +1,22 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
 export async function middleware(request: NextRequest) {
-    // tokenを持たない場合は/signupにリダイレクト   
-    if (!request.cookies.has("token")) {
-    return NextResponse.redirect(new URL('/signup', request.url));
+  const redirectFlag = request.cookies.get("redirectFlag");
+
+  if (!request.cookies.has("token") && !redirectFlag) {
+    return NextResponse.redirect(new URL("/login", request.url));
+  }
+
+  if (redirectFlag) {
+    const response = NextResponse.next();
+    response.cookies.delete("redirectFlag");
+    return response;
   }
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/((?!signup|login|api|_next/static|_next/image|favicon.ico).*)'],
+  matcher: ["/((?!signup|login|api|_next/static|_next/image|favicon.ico).*)"],
 };
