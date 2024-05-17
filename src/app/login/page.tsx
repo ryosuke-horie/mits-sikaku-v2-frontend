@@ -61,7 +61,7 @@ export default function LoginPage(): JSX.Element {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
-      <h1 className="text-2xl">ログイン</h1>
+      <h1 className="text-2xl mb-4">ログイン</h1>
       <div className="w-96">
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
@@ -91,6 +91,9 @@ export default function LoginPage(): JSX.Element {
             />
           </div>
           <div className="flex items-center justify-between">
+            <a href="/signup" className="text-blue-500 hover:text-blue-700">
+              アカウントをお持ちでないですか？
+            </a>
             <button
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="submit"
