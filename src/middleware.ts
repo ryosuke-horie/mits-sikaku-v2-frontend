@@ -1,16 +1,10 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { parse } from "cookie";
-
-export const runtime = "experimental-edge";
 
 export async function middleware(request: NextRequest) {
-  const cookies = parse(request.headers.get("cookie") || "");
+  const redirectFlag = request.cookies.get("redirectFlag");
 
-  const redirectFlag = cookies.redirectFlag;
-  const token = cookies.token;
-
-  if (!token && !redirectFlag) {
+  if (!request.cookies.has("token") && !redirectFlag) {
     return NextResponse.redirect(new URL("/login", request.url));
   }
 
