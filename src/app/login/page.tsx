@@ -11,6 +11,7 @@ export default function LoginPage(): JSX.Element {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -22,6 +23,7 @@ export default function LoginPage(): JSX.Element {
     const LoginApi = `${process.env.NEXT_PUBLIC_API_URL}/api/login`;
 
     try {
+      setIsLoading(true);
       const response = await fetch(LoginApi, {
         method: "POST",
         body: formData,
@@ -42,13 +44,17 @@ export default function LoginPage(): JSX.Element {
           expires: new Date(Date.now() + 60 * 1000), // 1分間有効なフラグ
         });
 
-        // クッキーの設定が完了した後にリダイレクト
-        router.push("/");
+        // クッキーの設定が完了したことを確認
+        setTimeout(() => {
+          router.push("/");
+        }, 100); // 少しの遅延を追加
       } else {
         alert("ログインに失敗しました。");
       }
     } catch (error) {
       console.error("エラーが発生しました:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -97,8 +103,9 @@ export default function LoginPage(): JSX.Element {
             <button
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="submit"
+              disabled={isLoading}
             >
-              ログイン
+              {isLoading ? "処理中..." : "ログイン"}
             </button>
           </div>
         </form>
