@@ -1,13 +1,12 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
-import { useCookies } from "next-client-cookies";
+import { useState } from "react";
+import Cookies from "js-cookie";
 
 export const runtime = "edge";
 
 export default function LoginPage(): JSX.Element {
   const router = useRouter();
-  const cookies = useCookies();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -32,22 +31,15 @@ export default function LoginPage(): JSX.Element {
       if (response.ok) {
         const data = await response.json();
 
-        // クッキーの設定
-        cookies.set("user_id", data.userId, {
-          path: "/",
-        });
-        cookies.set("token", data.token, {
-          path: "/",
-        });
-        cookies.set("redirectFlag", "true", {
-          path: "/",
-          expires: new Date(Date.now() + 60 * 1000), // 1分間有効なフラグ
-        });
+        // ユーザー ID とトークンを Cookie にセット
+        Cookies.set("user_id", data.userId, { path: "/" });
+        Cookies.set("token", data.token, { path: "/" });
+        Cookies.set("redirectFlag", "true", { path: "/", expires: 1 / 1440 }); // 1分間有効なフラグ
 
-        // デバッグ用: クッキーの設定を確認
-        console.log("user_id:", cookies.get("user_id"));
-        console.log("token:", cookies.get("token"));
-        console.log("redirectFlag:", cookies.get("redirectFlag"));
+        // クッキーの設定を確認
+        console.log("user_id:", Cookies.get("user_id"));
+        console.log("token:", Cookies.get("token"));
+        console.log("redirectFlag:", Cookies.get("redirectFlag"));
 
         // クッキーの設定が完了したことを確認
         setTimeout(() => {
@@ -62,13 +54,6 @@ export default function LoginPage(): JSX.Element {
       setIsLoading(false);
     }
   };
-
-  useEffect(() => {
-    // クッキーにtokenが存在するかをチェックして、存在すればリダイレクト
-    if (cookies.get("token")) {
-      router.push("/");
-    }
-  }, [cookies, router]);
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
