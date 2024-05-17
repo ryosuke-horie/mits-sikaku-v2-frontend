@@ -32,7 +32,7 @@ export default function LoginPage(): JSX.Element {
       if (response.ok) {
         const data = await response.json();
 
-        // ユーザー ID とトークンを Cookie にセット
+        // クッキーの設定
         cookies.set("user_id", data.userId, {
           path: "/",
         });
@@ -44,10 +44,15 @@ export default function LoginPage(): JSX.Element {
           expires: new Date(Date.now() + 60 * 1000), // 1分間有効なフラグ
         });
 
+        // デバッグ用: クッキーの設定を確認
+        console.log("user_id:", cookies.get("user_id"));
+        console.log("token:", cookies.get("token"));
+        console.log("redirectFlag:", cookies.get("redirectFlag"));
+
         // クッキーの設定が完了したことを確認
         setTimeout(() => {
           router.push("/");
-        }, 100); // 少しの遅延を追加
+        }, 500); // 少し長めの遅延を追加
       } else {
         alert("ログインに失敗しました。");
       }
