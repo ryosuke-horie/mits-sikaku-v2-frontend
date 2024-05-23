@@ -63,8 +63,8 @@ export default function Detail({ params }: { params: { id: string } }) {
             {post.small_category}
           </span>
           <p className="text-center text-lg text-point-green-dark float-right pr-20">
-            {name}
-        </p>
+            @{name}
+          </p>
         </div>
         <p className="mx-4 mt-4 text-2xl font-semibold text-point-green-dark">
           使用した教材
