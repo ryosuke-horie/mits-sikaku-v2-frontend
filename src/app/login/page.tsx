@@ -31,10 +31,9 @@ export default function LoginPage(): JSX.Element {
       if (response.ok) {
         const data = await response.json();
 
-        // Cookie にセット
+        // ユーザー ID とトークンを Cookie にセット
         Cookies.set("user_id", data.userId, { path: "/" });
         Cookies.set("token", data.token, { path: "/" });
-        Cookies.set("name", data.name, { path: "/" })
         Cookies.set("redirectFlag", "true", { path: "/", expires: 1 / 1440 }); // 1分間有効なフラグ
 
         // クッキーの設定を確認

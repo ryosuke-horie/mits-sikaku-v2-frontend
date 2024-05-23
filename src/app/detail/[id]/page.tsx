@@ -8,7 +8,6 @@ export const runtime = 'edge';
 export default function Detail({ params }: { params: { id: string } }) {
   const cookie = useCookies(); 
   const token = cookie.get("token");
-  const name = cookie.get("name");
 
   const [post, setPost] = useState({
     title: "",
@@ -56,15 +55,11 @@ export default function Detail({ params }: { params: { id: string } }) {
       {/* 体験記内容 */}
       <div className="m-4 flex flex-col bg-white">
         <div className="flex justify-between">
-            {/* 書いてくれた人の名前 */}
           <span className="m-4 text-xl text-point-green-dark">
             {post.big_category}
             <span> &nbsp;&gt;&nbsp;</span>
             {post.small_category}
           </span>
-          <p className="text-center text-lg text-point-green-dark float-right pr-20">
-            @{name}
-          </p>
         </div>
         <p className="mx-4 mt-4 text-2xl font-semibold text-point-green-dark">
           使用した教材
