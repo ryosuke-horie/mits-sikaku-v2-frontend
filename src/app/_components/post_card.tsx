@@ -27,7 +27,6 @@ const hoverAnimation =
 export default function PostsCard({ article }: PostsCardProps) {
   const cookie = useCookies();
   const userId = cookie.get("user_id");
-  const name   = cookie.get("name");
   const isUserArticle = userId == article.user_id;
 
   // 削除機能
@@ -79,12 +78,7 @@ export default function PostsCard({ article }: PostsCardProps) {
                   {article.big_category}
                   <span>&nbsp;&gt;&nbsp;</span>
                   {article.small_category}
-
-                    <span className="text-center text-lg text-point-gray-500 float-right pl-2">
-                        @{name}
-                    </span>
                 </p>
-
                 <h3 className="my-4 text-xl font-bold text-point-green-dark">
                   {article.title}
                 </h3>
