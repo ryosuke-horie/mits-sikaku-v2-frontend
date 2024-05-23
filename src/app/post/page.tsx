@@ -68,14 +68,6 @@ export default function Post() {
           method: data.method,
         }),
       });
-
-      console.log(userId);
-      console.log(data.bigClassify);
-      console.log(data.smallClassify);
-      console.log(data.title);
-      console.log(data.body);
-      console.log(data.method);
-
       router.push("/");
     } catch (error) {
       console.log(error);
