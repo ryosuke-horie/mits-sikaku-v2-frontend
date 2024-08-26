@@ -61,4 +61,10 @@ export const SIKAKU_LIST: SikakuListType = {
     "HTML5 Professional Certification Level.2",
     "HTML5 Professional Certification Level.1",
   ],
+  日本語能力試験: [
+    "選択してください",
+    "N1",
+    "N2",
+    "N3",
+  ],
 };
