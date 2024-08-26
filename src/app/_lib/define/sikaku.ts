@@ -20,11 +20,16 @@ export const SIKAKU_LIST: SikakuListType = {
   ],
   AWS: [
     "選択してください",
+    "AWS Certified Advanced Networking - Specialty",
+    "AWS Certified Machine Learning - Specialty",
+    "AWS Certified Security - Specialty",
     "AWS Certified Solutions Architect - Professional",
     "AWS Certified DevOps Engineer - Professional",
     "AWS Certified Solutions Architect - Associate",
     "AWS Certified SysOps Administrator-Associate",
     "AWS Certified Developer - Associate",
+    "AWS Certified Data Engineer - Associate",
+    "AWS Certified Cloud Practitioner",
   ],
   Python: [
     "選択してください",
